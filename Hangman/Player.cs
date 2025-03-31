@@ -56,6 +56,7 @@ namespace Hangman
             Console.WriteLine("Password:");
             password = Console.ReadLine();
         }
+
         public void Login()
         { 
             Console.Clear();
