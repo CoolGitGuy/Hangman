@@ -11,7 +11,7 @@ namespace Hangman
         static void Main(string[] args)
         {
             Player player = new Player();
-            Console.WriteLine(player.Name);
+            new Game();
             Console.ReadLine();
         }
     }
