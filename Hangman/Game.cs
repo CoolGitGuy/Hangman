@@ -11,7 +11,7 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
-        private string[] terms = { "Novak", "Boris", "Jovan" };
+        private string[] terms = { "AAtrox" };
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
 
@@ -38,11 +38,12 @@ namespace Hangman
 
             if (health == 0) // If health hits 0 player looses
             {
-                Console.WriteLine("\nYou Lose!");
+                typeWriterEffect("You Lose! :(\n");
                 return;
             }
             if (String.Equals(term, guess)) // if the guessed word matches a term, go onto the next word
             {
+                guessedWordPoints(term);
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
                 new Game(score, ++health);
@@ -82,7 +83,8 @@ namespace Hangman
                     hiddenWordCharacters[i] = guess;
                 }
             }
-            score += 2;
+            if(!hiddenWord.Equals(new string(hiddenWordCharacters)))score += 2;
+            else health-= 1;
             hiddenWord = new string(hiddenWordCharacters);
         }
 
@@ -97,12 +99,31 @@ namespace Hangman
             Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 2 || health <= 1) ? ((health == 2) ? " |" : @"/|\") : "");
             Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 0) ? @"/ \" : "");
             Console.WriteLine("{0,3}|    {0,4}", ' ');
-            Console.Write("{0,2}_|_     ", ' ' );
+            Console.Write("{0,2}_|_     {0,3}", ' ' );
             if(health !=0)return Console.ReadLine();
             return null;
         }
 
 
+        public void typeWriterEffect(string message)
+        {
+            for(int i = 0; i<message.Length; i++)
+            {
+                Console.Write(message[i]);
+                System.Threading.Thread.Sleep(150);
+            }
+        }
+        public void guessedWordPoints(string term)
+        {
+            for(int i =0; i<term.Length;i++)
+            {
+                if (hiddenWord[i] != term[i] && !guessedCharacters.Contains(term[i]))
+                {
+                    score += 3;
+                    guessedCharacters.Add(term[i]);
+                }
+            }
+        }
         public int Health { get => health; set => health = value; }
         public int Score { get => score; set => score = value; }
 
