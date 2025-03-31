@@ -12,9 +12,20 @@ namespace Hangman
         private int health = 5;
         private int score = 0;
         private string[] terms = { "Novak", "Boris", "Jovan" };
+        private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
 
-        public Game(){
+        public Game(){ //This one is used when you want to start a new game
+            string term = terms[new Random().Next(terms.Length)];
+            hiddenWord = new string('_', term.Length);
+            GameLogic(term);
+        }
+
+        private Game(int score,int health) //Onto the next word
+        {
+            this.score = score;
+            this.health = health;
+
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
             GameLogic(term);
@@ -23,36 +34,52 @@ namespace Hangman
 
         public void GameLogic(string term)
         {
-            if(health == 0){
+            if(health == 0) // If health hits 0 player looses
+            { 
                 Console.WriteLine("You Lose!");
                 return;
             }
 
-            Console.Clear();
-            Console.WriteLine("Health: " + health);
-            Console.WriteLine(term);
-            Console.WriteLine(hiddenWord);
+            /*Console.Clear();
+            Console.WriteLine("Health: " + health + " Score: " + score + "\n");
+            //Console.WriteLine(term);
+            Console.WriteLine(hiddenWord);*/
 
-            string guess = Console.ReadLine();
+            string guess = writeTUI();
 
 
-            if (String.Equals(term, guess))
+            if (String.Equals(term, guess)) // if the guessed word matches a term, go onto the next word
             {
-                termGuessed();
+                Console.WriteLine("You Guessed it!");
+                System.Threading.Thread.Sleep(600);
+                new Game(score, ++health);
             }
-            else if (guess.Length == 1)
+            else if (guess.Length == 1) // If a player puts a character instead
             {
+                if (guessedCharacters.Contains(guess[0]))
+                {
+                    GameLogic(term);
+                    return;
+                }    
                 underscoreLogic(term, guess[0]);
-                GameLogic(term);
+                guessedCharacters.Add(guess[0]);
+
+                if (!(hiddenWord == term)) GameLogic(term); // If the hiddenWord doesn't match the term then continue the game
+                else
+                {
+                    Console.WriteLine("You Guessed it!");
+                    System.Threading.Thread.Sleep(600);
+                    new Game(score,++health);
+                }
             }
-            else
+            else // if a guess doesn't match with a word
             {
                 health -= 1;
                 GameLogic(term);
             }
         }
 
-        public void termGuessed()
+       /* public void termGuessed()
         {
             Console.Clear();
             Console.WriteLine(
@@ -60,9 +87,9 @@ namespace Hangman
                 "Press Any Key"+
                 "");
 
-        }
+        }*/
 
-        public void underscoreLogic(string term,char guess)
+        public void underscoreLogic(string term,char guess) //Makes the Term Hidden and if the character is guessed, makes the character in the term visible
         {
             char[] hiddenWordCharacters = hiddenWord.ToCharArray();
             for(int i = 0; i< term.Length; i++)
@@ -72,8 +99,26 @@ namespace Hangman
                     hiddenWordCharacters[i] = guess;
                 }
             }
+            score += 2;
             hiddenWord = new string(hiddenWordCharacters);
         }
+
+
+        public string writeTUI()
+        {
+            Console.Clear();
+            Console.WriteLine("Health: " + health + " Score: " + score + "\n");
+            Console.WriteLine("{0,3}_____{0,3}" + hiddenWord, ' ');
+            Console.WriteLine("{0,3}| /  {0,3}", ' ');
+            Console.WriteLine("{0,3}|/   {0,3}{1}", ' ', new string(guessedCharacters.ToArray()));
+            Console.WriteLine("{0,3}|    {0,3}", ' ');
+            Console.WriteLine("{0,3}|    {0,3}", ' ');
+            Console.WriteLine("{0,3}|    {0,3}", ' ');
+            Console.Write("{0,2}_|_     ", ' ' );
+
+            return Console.ReadLine();
+        }
+
 
         public int Health { get => health; set => health = value; }
         public int Score { get => score; set => score = value; }
