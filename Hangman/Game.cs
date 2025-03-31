@@ -11,7 +11,7 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
-        private string[] terms = { "AAtrox" };
+        private string[] terms = { "Novak", "Boris", "Jovan" };
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
 
@@ -76,11 +76,12 @@ namespace Hangman
         public void underscoreLogic(string term,char guess) //Makes the Term Hidden and if the character is guessed, makes the character in the term visible
         {
             char[] hiddenWordCharacters = hiddenWord.ToCharArray();
+            string lowerTerm = term.ToLower();
             for(int i = 0; i< term.Length; i++)
             {
-                if (term[i] == guess)
+                if (lowerTerm[i] == guess)
                 {
-                    hiddenWordCharacters[i] = guess;
+                    hiddenWordCharacters[i] = term[i];
                 }
             }
             if(!hiddenWord.Equals(new string(hiddenWordCharacters)))score += 2;
