@@ -24,42 +24,42 @@ Hangman Rules
 Task in the C# console application
 
 From the user's perspective:
-	- When the player starts the application, the main menu is displayed
-	- They select a game type and start playing
-	- The player selects letters and guesses terms
-	- When they guess a term, they receive a message and a new term is given
-	- The game continues until the player loses all lives
-	- Then, the top 5 records and the player's score are displayed
-	- If the player makes it into the top 5 for that category, they can enter their name, and their record is saved
-	- The player is returned to the main menu
+- When the player starts the application, the main menu is displayed
+- They select a game type and start playing
+- The player selects letters and guesses terms
+- When they guess a term, they receive a message, and a new term is given
+- The game continues until the player loses all lives
+- Then, the top 5 records and the player's score are displayed
+- If the player makes it into the top 5 for that category, they can enter their name, and their record is saved
+- The player is returned to the main menu
 
 From the developer's perspective:
-	- Terms should be loaded from files
-	- Each file represents a category of terms
-	- Records are stored and read from a single file
+- Terms should be loaded from files
+- Each file represents a category of terms
+- Records are stored and read from a single file
 
 Scoring system:
-	+2 for a correct letter
-	+3 for each missing letter (without repetition) when the term is guessed
++2 for a correct letter
++3 for each missing letter (without repetition) when the term is guessed
 	  Example: Word Google -> G__gl_ -> +3 for o, +3 for e
 
 Life system:
-	-1 for an incorrect term guess
-	-1 for selecting a letter that is not in the term
-	+1 for solving a term
-	+1 for every 20 points earned
+-1 for an incorrect term guess
+-1 for selecting a letter that is not in the term
++1 for solving a term
++1 for every 20 points earned
 
 The player starts with 5 lives, although the drawing consists of 6 parts (head, body, 2 arms, 2 legs). If the player makes a 6th mistake (without changing the number of lives), they lose.
 
 Guessing during a round:
-	- If the player enters a single character, it counts as a letter guess; otherwise, it counts as a term guess
-	- After guessing a term, the player receives a message displaying the term, lives, round number, and score, then continues playing
-	- If no more terms are available, the player gets +10 points for each remaining life, receives a message about the game ending, and the game ends normally
+- If the player enters a single character, it counts as a letter guess; otherwise, it counts as a term guess
+- After guessing a term, the player receives a message displaying the term, lives, round number, and score, then continues playing
+- If no more terms are available, the player gets +10 points for each remaining life and receives a message about the game ending, and the game ends normally
 
 Main menu and submenus:
-	- The player must enter the number of the option they wish to activate
-	- If the option does not exist or the input is not a number, the player receives an invalid input message
-	- After selecting a category, the game starts
+- The player must enter the number of the option they wish to activate
+- If the option does not exist or the input is not a number, the player receives an invalid input message
+- After selecting a category, the game starts
 
 ```
 1 New Game
@@ -134,4 +134,4 @@ During a round with all fields filled:
 ```
 
 Note for juniors:
-- This is the second time I am making this application, so It doesn't match the description, I wanted to make it harder for myself
+- This is the second time I am making this application, so It doesn't match the description. I wanted to make it harder for myself.
