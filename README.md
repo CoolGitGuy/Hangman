@@ -61,69 +61,77 @@ Main menu and submenus:
 	- If the option does not exist or the input is not a number, the player receives an invalid input message
 	- After selecting a category, the game starts
 
-	1 New Game
-		1 All terms
-		2 Select term category
-			1 Famous People
-			2 Musical Instruments
-			3 Animals
-			4 Geography
-			5 Brands
-			0 Back
+```
+1 New Game
+	1 All terms
+	2 Select term category
+		1 Famous People
+		2 Musical Instruments
+		3 Animals
+		4 Geography
+		5 Brands
 		0 Back
-	2 Records
-		1 All terms
-		2 Famous People
-		3 Musical Instruments
-		4 Animals
-		5 Geography
-		6 Brands
-		0 Back
-	0 Exit
+	0 Back
+2 Records
+	1 All terms
+	2 Famous People
+	3 Musical Instruments
+	4 Animals
+	5 Geography
+	6 Brands
+	0 Back
+0 Exit
+```
 
 Examples
 Menu display:
-	 ________________________________________
-	|                                        |
-	|  Records                               |
-	|  1 All terms                           |
-	|  2 Famous People                       |
-	|  3 Musical Instruments                 |
-	|  4 Animals                             |
-	|  5 Geography                           |
-	|  6 Brands                              |
-	|                                        |
-	|  0 Back                                |
-	|________________________________________|
+```
+ ________________________________________
+|                                        |
+|  Records                               |
+|  1 All terms                           |
+|  2 Famous People                       |
+|  3 Musical Instruments                 |
+|  4 Animals                             |
+|  5 Geography                           |
+|  6 Brands                              |
+|                                        |
+|  0 Back                                |
+|________________________________________|
+```
 
 Displaying records:
-	 ________________________________________
-	|                                        |
-	| Records for category: Geography        |
-	| Points     Name                        |
-	| 15        Andrija                      |
-	| 12        Milica                       |
-	| 10        Nikola                       |
-	| 7         Bajaga                       |
-	| 2         xXx_Shadow_Wolf_xXx          |
-	|                                        |
-	| 1 Clear records                        |
-	| 0 Back                                 |
-	|________________________________________|
+```
+ ________________________________________
+|                                        |
+| Records for category: Geography        |
+| Points     Name                        |
+| 15        Andrija                      |
+| 12        Milica                       |
+| 10        Nikola                       |
+| 7         Bajaga                       |
+| 2         xXx_Shadow_Wolf_xXx          |
+|                                        |
+| 1 Clear records                        |
+| 0 Back                                 |
+|________________________________________|
+```
 
 During a round with all fields filled:
-	 ________________________________________
-	|                                        |
-	|  Points: 12  Round: 3                  |
-	|                                        |
-	|   _____,    __A__ _A__B_ _C ___D_ _C_  |
-	|   | /  ;                               |
-	|   |/   O    GPIOYCVDBA                 |
-	|   |   /|\                              |
-	|   |   / \   A +2 points!               |
-	|   |                                    |
-	|  _|_        K                          |
-	|________________________________________|
+```
+ ________________________________________
+|                                        |
+|  Points: 12  Round: 3                  |
+|                                        |
+|   _____,    __A__ _A__B_ _C ___D_ _C_  |
+|   | /  ;                               |
+|   |/   O    GPIOYCVDBA                 |
+|   |   /|\                              |
+|   |   / \   A +2 points!               |
+|   |                                    |
+|  _|_        K                          |
+|________________________________________|
+```
 
 Note for juniors:
 	- The task scope is likely larger than expected
@@ -134,6 +142,10 @@ Note for juniors:
 	- In practice, debugging and brainstorming with colleagues is essential
 	- The recommended approach is to collaborate with someone at a similar skill level
 	- This is an opportunity to experience real-world programming teamwork
+	- If you are not interested in the full task, try focusing on the part you find most engaging
+	- Your progress depends on your effort and interest
+	- If this task does not interest you, that's okay—it just means it's not the right challenge for you
+	- Even if you complete only a small portion, you will have gained valuable experience
 	- If you are not interested in the full task, try focusing on the part you find most engaging
 	- Your progress depends on your effort and interest
 	- If this task does not interest you, that's okay—it just means it's not the right challenge for you
