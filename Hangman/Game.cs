@@ -11,7 +11,7 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
-        private string[] terms = { "Novak Djokovic" ,"Jovan","Boris","Aljosa",""};
+        private string[] terms = { "Novak Djokovic" ,"Jovan","Boris","Aljosa"};
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
         private int pointCounter = 0;
@@ -81,7 +81,7 @@ namespace Hangman
             }
             else // if a guess doesn't match with a word
             {
-                health -= 1;
+                if(!String.IsNullOrWhiteSpace(guess))health -= 1;
                 GameLogic(term);
             }
         }
