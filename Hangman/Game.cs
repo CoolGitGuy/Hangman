@@ -11,59 +11,72 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
-        private string[] terms = { "Novak", "Boris", "Jovan" };
+        private string[] terms = { "Novak Djokovic" ,"Jovan","Boris","Aljosa",""};
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
+        private int pointCounter = 0;
+        private int round = 1;
+
 
         public Game(){ //This one is used when you want to start a new game
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
+            checkSpace(term);
             GameLogic(term);
         }
 
-        private Game(int score,int health) //Onto the next word
+        private Game(int score,int health, int pointCounter, int round) //Onto the next word
         {
             this.score = score;
             this.health = health;
+            this.pointCounter = pointCounter;
+            this.round = round;
 
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
+            checkSpace(term);
             GameLogic(term);
         }
-
 
         public void GameLogic(string term)
         {
             string guess = writeTUI();
-
+            pointCounterReset();
+            
             if (health == 0) // If health hits 0 player looses
             {
                 typeWriterEffect("You Lose! :(\n");
                 return;
             }
-            if (String.Equals(term, guess)) // if the guessed word matches a term, go onto the next word
+            if (String.Equals(term.ToLower(), guess.ToLower())) // if the guessed word matches a term, go onto the next word
             {
                 guessedWordPoints(term);
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
-                new Game(score, ++health);
+                pointCounterReset();
+                new Game(score, ++health, pointCounter,++round);
             }
             else if (guess.Length == 1) // If a player puts a character instead
             {
-                if (guessedCharacters.Contains(guess[0]))
+                if(guess == " ")
+                {
+                    GameLogic(term);
+                    return;
+                }
+                if (guessedCharacters.Contains(guess.ToLower()[0]))
                 {
                     GameLogic(term);
                     return;
                 }    
                 underscoreLogic(term, guess[0]);
-                guessedCharacters.Add(guess[0]);
+                guessedCharacters.Add(guess.ToLower()[0]);
 
                 if (!(hiddenWord == term)) GameLogic(term); // If the hiddenWord doesn't match the term then continue the game
                 else
                 {
-                    Console.WriteLine("You Guessed it!");
+                    Console.Write("You Guessed it!");
                     System.Threading.Thread.Sleep(600);
-                    new Game(score,++health);
+                    new Game(score,++health, pointCounter,++round);
                 }
             }
             else // if a guess doesn't match with a word
@@ -79,21 +92,21 @@ namespace Hangman
             string lowerTerm = term.ToLower();
             for(int i = 0; i< term.Length; i++)
             {
-                if (lowerTerm[i] == guess)
+                if (lowerTerm[i] == guess.ToString().ToLower()[0])
                 {
                     hiddenWordCharacters[i] = term[i];
                 }
             }
-            if(!hiddenWord.Equals(new string(hiddenWordCharacters)))score += 2;
-            else health-= 1;
+            if (!hiddenWord.Equals(new string(hiddenWordCharacters))) { score += 2; pointCounter += 2; }
+            else health -= 1;
             hiddenWord = new string(hiddenWordCharacters);
         }
 
 
-        public string writeTUI()
+        public string writeTUI() //Text User Interface
         {
             Console.Clear();
-            Console.WriteLine("Health: " + health + " Score: " + score + "\n");
+            Console.WriteLine("Health: " + health + " Score: " + score + "\nRound: " + round);
             Console.WriteLine("{0,3}_____{1,-1}{0,4}" + hiddenWord, ' ', (health <= 4) ? "," : "");
             Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ',(health <= 4) ? ";" : "");
             Console.WriteLine("{0,3}|/   {1,-1}{0,4}{2}", ' ', (health <= 3 ) ? "O" : "", new string(guessedCharacters.ToArray()));
@@ -106,7 +119,7 @@ namespace Hangman
         }
 
 
-        public void typeWriterEffect(string message)
+        public void typeWriterEffect(string message) //Adds typewriter effect to a message
         {
             for(int i = 0; i<message.Length; i++)
             {
@@ -114,17 +127,39 @@ namespace Hangman
                 System.Threading.Thread.Sleep(150);
             }
         }
-        public void guessedWordPoints(string term)
+
+        public void checkSpace(string term)
+        {
+            if (term.Contains(' '))
+            {
+                StringBuilder stringBuilder = new StringBuilder(hiddenWord);
+                stringBuilder[term.IndexOf(' ')] = ' ';
+                hiddenWord = stringBuilder.ToString();
+            }
+        }
+
+        public void guessedWordPoints(string term) //3 points for each unique hidden character (no duplicates) after player quesses a full word right
         {
             for(int i =0; i<term.Length;i++)
             {
-                if (hiddenWord[i] != term[i] && !guessedCharacters.Contains(term[i]))
+                if (hiddenWord.ToLower()[i] != term.ToLower()[i] && !guessedCharacters.Contains(term.ToLower()[i]))
                 {
                     score += 3;
+                    pointCounter += 3;
                     guessedCharacters.Add(term[i]);
                 }
             }
         }
+
+        public void pointCounterReset()
+        {
+            if (pointCounter >= 50) //Adds 1 health for every 50 score points 
+            {
+                pointCounter -= 50;
+                ++health;
+            }
+        }
+
         public int Health { get => health; set => health = value; }
         public int Score { get => score; set => score = value; }
 
