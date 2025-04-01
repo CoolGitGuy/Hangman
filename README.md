@@ -134,19 +134,4 @@ During a round with all fields filled:
 ```
 
 Note for juniors:
-- The task scope is likely larger than expected
-- The goal is to develop a sense of workflow, project structure, and coding approach
-- If divided, this task could be split into 4 separate challenges, each sufficient for a top grade
-- Completion is not mandatory, but meeting at least 3 times for progress discussion is recommended
-- The focus is on code clarity and organization, not just correctness
-- In practice, debugging and brainstorming with colleagues is essential
-- The recommended approach is to collaborate with someone at a similar skill level
-- This is an opportunity to experience real-world programming teamwork
-- If you are not interested in the full task, try focusing on the part you find most engaging
-- Your progress depends on your effort and interest
-- If this task does not interest you, that's okay—it just means it's not the right challenge for you
-- Even if you complete only a small portion, you will have gained valuable experience
-- If you are not interested in the full task, try focusing on the part you find most engaging
-- Your progress depends on your effort and interest
-- If this task does not interest you, that's okay—it just means it's not the right challenge for you
-- Even if you complete only a small portion, you will have gained valuable experience
+- This is the second time I am making this application, so It doesn't match the description, I wanted to make it harder for myself
