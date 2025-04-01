@@ -11,26 +11,32 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
-        private string[] terms = { "Novak Djokovic" ,"Jovan","Boris","Aljosa"};
+        private string[] terms;
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
         private int pointCounter = 0;
         private int round = 1;
+        private Player player;
 
 
-        public Game(){ //This one is used when you want to start a new game
+        public Game(string[] terms, Player player) //This one is used when you want to start a new game
+        { 
+            this.terms = terms;
+            this.player = player;
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
             checkSpace(term);
             GameLogic(term);
         }
 
-        private Game(int score,int health, int pointCounter, int round) //Onto the next word
+        private Game(int score,int health, int pointCounter, int round, string[] terms,Player player) //Onto the next word
         {
             this.score = score;
             this.health = health;
             this.pointCounter = pointCounter;
             this.round = round;
+            this.terms = terms;
+            this.player = player;
 
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
@@ -46,6 +52,7 @@ namespace Hangman
             if (health == 0) // If health hits 0 player looses
             {
                 typeWriterEffect("You Lose! :(\n");
+                new GameFactory(player);
                 return;
             }
             if (String.Equals(term.ToLower(), guess.ToLower())) // if the guessed word matches a term, go onto the next word
@@ -54,7 +61,7 @@ namespace Hangman
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
                 pointCounterReset();
-                new Game(score, ++health, pointCounter,++round);
+                new Game(score, ++health, pointCounter,++round,terms,player);
             }
             else if (guess.Length == 1) // If a player puts a character instead
             {
@@ -76,7 +83,7 @@ namespace Hangman
                 {
                     Console.Write("You Guessed it!");
                     System.Threading.Thread.Sleep(600);
-                    new Game(score,++health, pointCounter,++round);
+                    new Game(score,++health, pointCounter,++round,terms,player);
                 }
             }
             else // if a guess doesn't match with a word
