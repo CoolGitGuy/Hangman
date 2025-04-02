@@ -128,5 +128,5 @@ During a round with all fields filled:
 |________________________________________|
 ```
 
-Note for juniors:
+Notes:
 - This is the second time I am making this application, so It doesn't match the description. I wanted to make it harder for myself.
