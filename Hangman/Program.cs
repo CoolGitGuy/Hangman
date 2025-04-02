@@ -10,6 +10,7 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
+            DatabaseHelper.InitializeDatabase();
             new Menu();
             Console.ReadLine();
         }
