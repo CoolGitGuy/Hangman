@@ -113,6 +113,7 @@ namespace Hangman
         public string writeTUI() //Text User Interface
         {
             Console.Clear();
+            //Console.WriteLine("Name: " + player.Name);
             Console.WriteLine("Health: " + health + " Score: " + score + "\nRound: " + round);
             Console.WriteLine("{0,3}_____{1,-1}{0,4}" + hiddenWord, ' ', (health <= 4) ? "," : "");
             Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ',(health <= 4) ? ";" : "");

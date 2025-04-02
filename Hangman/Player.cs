@@ -37,11 +37,9 @@ namespace Hangman
         public int MainMenu()
         {
             Console.Clear();
-
-            Console.WriteLine(
-                "1 Login \n" +
-                "2 Register \n" +
-                "0 Exit");
+            Console.WriteLine("1   Login");
+            Console.WriteLine("2   Register\n");
+            Console.WriteLine("0   Exit");
 
             try { return int.Parse(Console.ReadLine()); }
             catch { return MainMenu(); }
@@ -51,19 +49,19 @@ namespace Hangman
         { 
             Console.Clear();
 
-            Console.WriteLine("Name:");
+            Console.Write("Name:  ");
             name = Console.ReadLine();
-            Console.WriteLine("Password:");
+            Console.Write("Password:  ");
             password = Console.ReadLine();
         }
 
         public void Login()
-        { 
+        {
             Console.Clear();
 
-            Console.WriteLine("Name:");
+            Console.Write("Name: ");
             name = Console.ReadLine();
-            Console.WriteLine("Password:");
+            Console.Write("Password: ");
             password = Console.ReadLine();
         }
     }

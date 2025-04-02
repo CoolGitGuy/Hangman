@@ -9,27 +9,27 @@ namespace Hangman
     internal class GameFactory
     {
         private Player player;
-        public GameFactory() {
-            writeTui(true);
-        }
+        
 
         public GameFactory(Player player)
         {
             this.player = player;
-            writeTui(false);
+            writeTui();
         }
 
-        public void writeTui(bool isZeroOrBeginning)
+        public void writeTui() //Writes Text User Interface for Game Choosing Menu, (isZeroOrBeginning = true) Log Out 
         {
-            if(isZeroOrBeginning)player = new Player();
+
             Console.Clear();
+
+            //Console.WriteLine("Name: " + player.Name);
             Console.WriteLine("1   All Terms");
             Console.WriteLine("2   Celebrities");
             Console.WriteLine("3   Musical Instruments");
             Console.WriteLine("4   Animals");
             Console.WriteLine("5   Geography");
             Console.WriteLine("6   Animals");
-            Console.WriteLine("\n0   Log Out");
+            Console.WriteLine("\n0   Go Back");
 
             string answerText = Console.ReadLine();
             int answer = 10;
@@ -38,9 +38,9 @@ namespace Hangman
 
             if (answer >= 0 && answer <= 9) 
                     getGame(answer);
-            else writeTui(false);
+            else writeTui();
         }
-        public Game getGame(int gameType) 
+        public Game getGame(int gameType) //Chooses a gamemode based on gameType 
         { 
             switch(gameType) { 
                 case 1:
@@ -62,7 +62,7 @@ namespace Hangman
                     string[] brands = { "Nike", "Adidas", "Doritos" };
                     return new Game(brands, player);
                 case 0:
-                    writeTui(true);
+                    new Menu(player);
                     return null;
                 default: return null;
             }
