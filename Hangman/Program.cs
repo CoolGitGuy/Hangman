@@ -10,8 +10,7 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            //Player player = new Player();
-            new GameFactory();
+            new Menu();
             Console.ReadLine();
         }
     }
