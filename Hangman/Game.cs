@@ -52,7 +52,9 @@ namespace Hangman
             
             if (health == 0) // If health hits 0 player looses
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 typeWriterEffect("You Lose! :(\n");
+                Console.ResetColor();
                 new GameFactory(player);
                 return;
             }

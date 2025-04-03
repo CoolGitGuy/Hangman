@@ -19,10 +19,10 @@ namespace Hangman
                     Environment.Exit(0);
                     break;
                 case 1:
-                    Login();
+                    Authentification(1);
                     break;
                 case 2:
-                    Register();
+                    Authentification(2);
                     break;
                 default:
                     name = "Guest";
@@ -45,24 +45,52 @@ namespace Hangman
             catch { return MainMenu(); }
         }
 
-        public void Register()
-        { 
+        public void Authentification(int type)
+        {
             Console.Clear();
 
             Console.Write("Name:  ");
             name = Console.ReadLine();
             Console.Write("Password:  ");
             password = Console.ReadLine();
+
+            if(type == 1) LoginChecker();
+            if(type == 2) RegisterChecker();
         }
 
-        public void Login()
+        public void LoginChecker()
         {
-            Console.Clear();
 
-            Console.Write("Name: ");
-            name = Console.ReadLine();
-            Console.Write("Password: ");
-            password = Console.ReadLine();
+
+            if(!DatabaseHelper.LoginValidator(name, password))
+            {
+                Authentification(1);
+            }
+        }
+
+        public void RegisterChecker()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            if (DatabaseHelper.accountIsAlreadyMade(name))
+            {
+                Console.WriteLine("\nAccount With That Username Is Already Taken!");
+                Console.ResetColor();
+                Console.ReadKey();
+                Authentification(2);
+                return;
+            }
+            else if (name == "" || password == "")
+            {
+                Console.WriteLine("\nYou Forgot To Type In Your Name/Password!");
+                Console.ResetColor();
+                Console.ReadKey();
+                Authentification(2);
+                return;
+            }
+
+            DatabaseHelper.RegistrationInDatabase(name,password);
+
+            Console.ResetColor();
         }
     }
 }

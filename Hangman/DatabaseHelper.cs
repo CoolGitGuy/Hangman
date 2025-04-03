@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Xml.Linq;
 
 namespace Hangman
 {
@@ -46,7 +48,7 @@ namespace Hangman
                         command.ExecuteNonQuery();
                     }
 
-                    connection.Close();
+                    //connection.Close();
                 }
             }
         }
@@ -88,15 +90,89 @@ namespace Hangman
             }
                 return list.ToArray();
         }
+
+        public static bool accountIsAlreadyMade(string Name)
+        {
+            List<string> list = new List<string>();
+
+            using (var connection = new SQLiteConnection(connectionStringDatabase))
+            {
+                connection.Open();
+                string selectTerms = $"SELECT Username FROM Player";
+
+
+                SQLiteDataReader data = null;
+                using (SQLiteCommand command = connection.CreateCommand())
+                {
+
+                    command.CommandText = selectTerms;
+                    data = command.ExecuteReader();
+
+                    if (data.HasRows)
+                    {
+                        while (data.Read())
+                        {
+                            list.Add(data.GetValue(0).ToString());
+                        }
+                    }
+                }
+                connection.Close();
+
+
+                if (list.Contains(Name)) return true;
+                return false;
+            }
+        }
+
+        public static void RegistrationInDatabase(string username,string password)
+        {
+            using (var connection = new SQLiteConnection(connectionStringDatabase))
+            {
+                connection.Open();
+                string registrationSQL = $"INSERT INTO Player (Username,Password) VALUES ('{username}','{password}')";
+
+
+                using (var command = new SQLiteCommand(registrationSQL,connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+            return;
+        }
+
+        public static bool LoginValidator(string username, string password)
+        {
+            if(username == null || password == null) return false;
+
+            if(accountIsAlreadyMade(username))
+            {
+                using (var connection = new SQLiteConnection(connectionStringDatabase))
+                {
+                    connection.Open();
+                    string selectTerms = $"select Password FROM Player WHERE Username like '{username}';";
+
+                    //////////Implementirati Ukoliko username ne postoji u bazi podataka da vraca na login!
+                    SQLiteDataReader data = null;
+                    using (SQLiteCommand command = connection.CreateCommand())
+                    {
+
+                        command.CommandText = selectTerms;
+                        data = command.ExecuteReader();
+
+                        if (data.HasRows)
+                        {
+                            data.Read();
+                            if (password.Equals(data.GetValue(0).ToString())) return true;
+                            return false;
+                        }
+                        else return false;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
-
-/*using (SQLiteDataReader MyDataReader = command.ExecuteReader())
-                    {
-                        while(MyDataReader.Read())
-                        {
-                            string word = MyDataReader["Word"].ToString();
-                            if(String.IsNullOrEmpty(word))terms[i] = word;
-                        }
-                        
-                    }*/
