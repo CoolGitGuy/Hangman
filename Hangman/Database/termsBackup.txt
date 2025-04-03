@@ -1,0 +1,264 @@
+Category.Word
+Animal.Dog
+Animal.Cow
+Animal.Cat
+Animal.Horse
+Animal.Donkey
+Animal.Tiger
+Animal.Lion
+Animal.Panther
+Animal.Leopard
+Animal.Cheetah
+Animal.Bear
+Animal.Elephant
+Animal.Polar Bear
+Animal.Turtle
+Animal.Tortoise
+Animal.Crocodile
+Animal.Rabbit
+Animal.Porcupine
+Animal.Hare
+Animal.Hen
+Animal.Pigeon
+Animal.Albatross
+Animal.Crow
+Animal.Fish
+Animal.Dolphin
+Animal.Frog
+Animal.Whale
+Animal.Alligator
+Animal.Eagle
+Animal.Squirrel
+Animal.Ostrich
+Animal.Fox
+Animal.Goat
+Animal.Jackal
+Animal.Emu
+Animal.Armadillo
+Animal.Eel
+Animal.Goose
+Animal.Arctic Wolf
+Animal.Beagle
+Animal.Gorilla
+Animal.Chimpanzee
+Animal.Monkey
+Animal.Beaver
+Animal.Orangutan
+Animal.Antelope
+Animal.Bat
+Animal.Badger
+Animal.Giraffe
+Animal.Panda
+Animal.Hamster
+Animal.Cobra
+Celebrity.50 Cent
+Celebrity.Abraham Lincoln
+Celebrity.Adolf Hitler
+Celebrity.Albert Einstein
+Celebrity.Anne Frank
+Celebrity.Arnold Schwarzenegger
+Celebrity.Barack Obama
+Celebrity.Beyonce
+Celebrity.Bill Gates
+Celebrity.Brad Pitt
+Celebrity.Christiano Ronaldo
+Celebrity.Cleopatra
+Celebrity.David Beckham
+Celebrity.Donald Trump
+Celebrity.James Woods
+Celebrity.John Lennon
+Celebrity.Joseph Stalin
+Celebrity.Kim Kardashian
+Celebrity.Lady Gaga
+Celebrity.Lenin
+Celebrity.Leo Tolstoy
+Celebrity.Leonardo da Vinci
+Celebrity.Lionel Messi
+Celebrity.Ludwig Beethoven
+Celebrity.Madonna
+Celebrity.Mark Zuckerburg
+Celebrity.Martin Luther King
+Celebrity.Michael Jackson
+Celebrity.Michael Jordon
+Celebrity.Mother Teresa
+Celebrity.Muhammad Ali
+Celebrity.Neil Armstrong
+Celebrity.Nelson Mandela
+Celebrity.Nicki Minaj
+Celebrity.Nicolas Cage
+Celebrity.Nikola Tesla
+Celebrity.Pablo Picasso
+Celebrity.Pele
+Celebrity.Plato
+Celebrity.Queen Elizabeth II
+Celebrity.Roger Federer
+Celebrity.Shakira
+Celebrity.Snoop Dogg
+Celebrity.Stalin
+Celebrity.Stephen Hawking
+Celebrity.Steve Jobs
+Celebrity.Thomas Edison
+Celebrity.Tiger Woods
+Celebrity.Tom Cruise
+Celebrity.Usain Bolt
+Celebrity.Vincent Van Gogh
+Celebrity.Walt Disney
+Celebrity.Winston Churchill
+Instrument.Guitar
+Instrument.Piano
+Instrument.Violin
+Instrument.Drums
+Instrument.Flute
+Instrument.Trumpet
+Instrument.Saxophone
+Instrument.Cello
+Instrument.Clarinet
+Instrument.Trombone
+Instrument.Harp
+Instrument.Oboe
+Instrument.Accordion
+Instrument.Ukulele
+Instrument.Banjo
+Instrument.Mandolin
+Instrument.Bass Guitar
+Instrument.Tuba
+Instrument.Xylophone
+Instrument.Harmonica
+Instrument.Marimba
+Instrument.Synthesizer
+Instrument.Organ
+Instrument.Bagpipes
+Instrument.Bongo
+Instrument.Congas
+Instrument.Djembe
+Instrument.Tambourine
+Instrument.Triangle
+Instrument.Castanets
+Instrument.Didgeridoo
+Instrument.Sitar
+Instrument.Tabla
+Instrument.Balalaika
+Instrument.Zither
+Instrument.Lyre
+Instrument.Ocarina
+Instrument.Pan Flute
+Instrument.Guzheng
+Instrument.Erhu
+Instrument.Shamisen
+Instrument.Koto
+Instrument.Steel Drum
+Instrument.Glass Harmonica
+Instrument.Theremin
+Instrument.Clavichord
+Instrument.Celesta
+Instrument.Viola
+Instrument.Double Bass
+Instrument.Melodica
+Instrument.Bugle
+Geography.Argentina
+Geography.Australia
+Geography.Brazil
+Geography.Canada
+Geography.China
+Geography.Egypt
+Geography.France
+Geography.Germany
+Geography.India
+Geography.Italy
+Geography.Japan
+Geography.Mexico
+Geography.Nigeria
+Geography.Russia
+Geography.South Africa
+Geography.Spain
+Geography.United Kingdom
+Geography.United States
+Geography.Vietnam
+Geography.Thailand
+Geography.Indonesia
+Geography.Sweden
+Geography.Norway
+Geography.Finland
+Geography.Denmark
+Geography.Poland
+Geography.Ukraine
+Geography.Turkey
+Geography.Saudi Arabia
+Geography.Iran
+Geography.Pakistan
+Geography.Bangladesh
+Geography.Philippines
+Geography.Malaysia
+Geography.Singapore
+Geography.New Zealand
+Geography.Chile
+Geography.Peru
+Geography.Colombia
+Geography.Venezuela
+Geography.Greece
+Geography.Switzerland
+Geography.Netherlands
+Geography.Belgium
+Geography.Portugal
+Geography.Czech Republic
+Geography.Hungary
+Geography.Austria
+Geography.South Korea
+Geography.Taiwan
+Geography.Israel
+Geography.Serbia
+Brands.Apple
+Brands.Samsung
+Brands.Microsoft
+Brands.Google
+Brands.Amazon
+Brands.Tesla
+Brands.BMW
+Brands.Mercedes
+Brands.Toyota
+Brands.Honda
+Brands.Ford
+Brands.Nike
+Brands.Adidas
+Brands.Puma
+Brands.Coca-Cola
+Brands.Pepsi
+Brands.McDonald's
+Brands.Starbucks
+Brands.Netflix
+Brands.Disney
+Brands.Sony
+Brands.Intel
+Brands.IBM
+Brands.Dell
+Brands.HP
+Brands.Lenovo
+Brands.LG
+Brands.Huawei
+Brands.Volkswagen
+Brands.Audi
+Brands.Ferrari
+Brands.Lamborghini
+Brands.Rolex
+Brands.Gucci
+Brands.Prada
+Brands.Chanel
+Brands.Louis Vuitton
+Brands.Zara
+Brands.H&M
+Brands.Uniqlo
+Brands.Nestlé
+Brands.Procter & Gamble
+Brands.Johnson & Johnson
+Brands.Uber
+Brands.Airbnb
+Brands.PayPal
+Brands.Visa
+Brands.Mastercard
+Brands.Spotify
+Brands.TikTok
+Brands.Snapchat
+Brands.Twitter
+Brands.YouTube
+Brands.Instagram
+Brands.Facebook
