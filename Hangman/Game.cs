@@ -23,6 +23,7 @@ namespace Hangman
         { 
             this.terms = terms;
             this.player = player;
+
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
             checkSpace(term);

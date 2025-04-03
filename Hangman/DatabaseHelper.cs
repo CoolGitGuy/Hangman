@@ -10,13 +10,13 @@ namespace Hangman
 {
     internal class DatabaseHelper
     {
-        private static string connectionString = @"Data Source=..\..\Database\database.db;Version=3;";
+        private static string connectionStringDatabase = @"Data Source=..\..\Database\database.db;Version=3;";
         public static void InitializeDatabase()
         {
             if(!File.Exists(@"..\..\Database\database.db"))
             {
                 SQLiteConnection.CreateFile(@"..\..\Database\database.db");
-                using (var connection = new SQLiteConnection(connectionString))
+                using (var connection = new SQLiteConnection(connectionStringDatabase))
                 {
                     connection.Open();
 
@@ -45,9 +45,58 @@ namespace Hangman
                         command.CommandText = createGameTableQuery;
                         command.ExecuteNonQuery();
                     }
+
+                    connection.Close();
                 }
             }
         }
 
+        private static string connectionStringTerms = @"Data Source=..\..\Database\Terms.db;Version=3;";
+
+        public static string[] InitializeTerms(string termType)
+        {
+            List<string> list = new List<string>();
+
+            using (var connection = new SQLiteConnection(connectionStringTerms))
+            {
+                connection.Open();
+                string selectTerms;
+                if (termType != "*")
+                {
+                    selectTerms = $"SELECT Word FROM Terms WHERE Category like \"{termType}\"";
+                }
+                else selectTerms = $"SELECT Word FROM Terms";
+
+
+                SQLiteDataReader data = null;
+                using (SQLiteCommand command = connection.CreateCommand())
+                {
+                    
+                    command.CommandText = selectTerms;
+                    data = command.ExecuteReader();
+
+                    if (data.HasRows)
+                    {
+                        while (data.Read())
+                        {
+                            list.Add(data.GetValue(0).ToString());
+                        }
+                    }
+                }
+                
+                connection.Close();
+            }
+                return list.ToArray();
+        }
     }
 }
+
+/*using (SQLiteDataReader MyDataReader = command.ExecuteReader())
+                    {
+                        while(MyDataReader.Read())
+                        {
+                            string word = MyDataReader["Word"].ToString();
+                            if(String.IsNullOrEmpty(word))terms[i] = word;
+                        }
+                        
+                    }*/
