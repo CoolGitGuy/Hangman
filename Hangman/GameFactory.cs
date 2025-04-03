@@ -44,22 +44,22 @@ namespace Hangman
         { 
             switch(gameType) { 
                 case 1:
-                    string[] allTerms = { "Novak Djokovic" ,"Pig","Potato"};
+                    string[] allTerms = DatabaseHelper.InitializeTerms("*");
                     return new Game(allTerms,player);
                 case 2:
-                    string[] celebrities = { "Novak Djokovic", "Cristiano Ronaldo", "Lionel Messi" };
+                    string[] celebrities = DatabaseHelper.InitializeTerms("Celebrity");
                     return new Game(celebrities, player);
                 case 3:
-                    string[] musicalInstruments = { "piano", "Cristiano Ronaldo", "Lionel Messi" };
+                    string[] musicalInstruments = DatabaseHelper.InitializeTerms("Instrument");
                     return new Game(musicalInstruments, player);
                 case 4:
-                    string[] animals = { "Cat", "Dog", "Pig" };
+                    string[] animals = DatabaseHelper.InitializeTerms("Animal");
                     return new Game(animals, player);
                 case 5:
-                    string[] geography = { "Belgrade", "Toronto", "Bosnia and Hertzegovina" };
+                    string[] geography = DatabaseHelper.InitializeTerms("Geography");
                     return new Game(geography, player);
                 case 6:
-                    string[] brands = { "Nike", "Adidas", "Doritos" };
+                    string[] brands = DatabaseHelper.InitializeTerms("Brands");
                     return new Game(brands, player);
                 case 0:
                     new Menu(player);
