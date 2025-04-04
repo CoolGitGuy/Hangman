@@ -25,8 +25,7 @@ namespace Hangman
                     Authentification(2);
                     break;
                 default:
-                    name = "Guest";
-                    password = "Guest";
+                    new Player();
                     break;
             }
         }
@@ -60,10 +59,19 @@ namespace Hangman
 
         public void LoginChecker() //Checks if Login was valid
         {
+            string answer = null;
+            Console.ForegroundColor = ConsoleColor.Red;
             if (!DatabaseHelper.LoginValidator(name, password))
             {
-                Authentification(1);
+                Console.WriteLine("\nUsername/Password Is Not Valid");
+                Console.ResetColor();
+                Console.WriteLine("\nType Any Key To Go Back...\n1 To Try Again");
+                answer = Console.ReadLine();
+                Console.ResetColor();
+                if (answer != "1") new Player();
+                else Authentification(1);
             }
+            Console.ResetColor();
         }
 
         public void RegisterChecker() //Checks if Registration was valid
@@ -88,7 +96,7 @@ namespace Hangman
                 Console.WriteLine("\nType Any Key To Go Back...\n1 To Try Again");
                 answer = Console.ReadLine();
 
-                if (answer[0] == '1') new Player();
+                if (answer=="" || answer[0] == '1') new Player();
                 else Authentification(2);
                 return;
             }

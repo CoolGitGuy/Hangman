@@ -11,6 +11,7 @@ namespace Hangman
     {
         private int health = 5;
         private int score = 0;
+        private int oldScore = 0;
         private string[] terms;
         private string gamemode = null;
         private HashSet<char> guessedCharacters = new HashSet<char>();
@@ -32,7 +33,7 @@ namespace Hangman
             GameLogic(term);
         }
 
-        private Game(int score, int health, int pointCounter, int round, string[] terms, string gamemode, Player player) //Onto the next word
+        private Game(int score,int oldScore, int health, int pointCounter, int round, string[] terms, string gamemode, Player player) //Onto the next word
         {
             this.score = score;
             this.health = health;
@@ -41,6 +42,7 @@ namespace Hangman
             this.terms = terms;
             this.player = player;
             this.gamemode = gamemode;
+            this.oldScore= oldScore;
 
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
@@ -68,7 +70,7 @@ namespace Hangman
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
                 pointCounterReset();
-                new Game(score, ++health, pointCounter, ++round, terms, gamemode, player);
+                new Game(score,oldScore, ++health, pointCounter, ++round, terms, gamemode, player);
             }
             else if (guess.Length == 1) // If a player puts a character instead
             {
@@ -90,7 +92,7 @@ namespace Hangman
                 {
                     Console.Write("You Guessed it!");
                     System.Threading.Thread.Sleep(600);
-                    new Game(score, ++health, pointCounter, ++round, terms, gamemode, player);
+                    new Game(score,oldScore, ++health, pointCounter, ++round, terms, gamemode, player);
                 }
             }
             else // if a guess doesn't match with a word
@@ -126,9 +128,10 @@ namespace Hangman
             Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ', (health <= 4) ? ";" : "");
             Console.WriteLine("{0,3}|/   {1,-1}{0,4}{2}", ' ', (health <= 3) ? "O" : "", new string(guessedCharacters.ToArray()));
             Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 2 || health <= 1) ? ((health == 2) ? " |" : @"/|\") : "");
-            Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 0) ? @"/ \" : "");
+            Console.WriteLine("{0,3}|   {1,-1}{0,5}{2}", ' ', (health <= 0) ? @"/ \" : "", (oldScore != score) ? $"+{score-oldScore} Points" : "");
             Console.WriteLine("{0,3}|    {0,4}", ' ');
             Console.Write("{0,2}_|_     {0,3}", ' ');
+            oldScore = score;
             if (health != 0) return Console.ReadLine();
             return null;
         }
