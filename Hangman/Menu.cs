@@ -9,7 +9,8 @@ namespace Hangman
     internal class Menu
     {
         private Player player;
-        public Menu() {
+        public Menu()
+        {
             writeMenuTUI(false);
         }
 
@@ -21,8 +22,8 @@ namespace Hangman
 
         public void writeMenuTUI(bool playerAlreadyDeclared) //Writes Text User Interface, (playerAlreadyDeclared = false) Make a new player/Log Out 
         {
-            if(!playerAlreadyDeclared)player = new Player();
-            
+            if (!playerAlreadyDeclared) player = new Player();
+
             Console.Clear();
             //Console.WriteLine("Name: " + player.Name);
             Console.WriteLine("1   New Game");
@@ -38,17 +39,18 @@ namespace Hangman
 
         public void optionPicker(int answer)
         {
-            switch(answer)
+            switch (answer)
             {
                 case 1:
                     new GameFactory(player);
                     break;
-                case 2: //Konektovao bi sa GameFactory samo sto bi izmenio neke stvari
+                case 2:
+                    new RecordFactory(player);
                     return;
                 case 0:
                     writeMenuTUI(false);
                     break;
-                default: 
+                default:
                     writeMenuTUI(true);
                     break;
             }

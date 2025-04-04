@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Hangman
-{   
+{
     internal class Player
     {
         private string name;
         private string password;
 
-        public Player() 
+        public Player()
         {
-            switch(MainMenu())
+            switch (MainMenu())
             {
                 case 0:
                     Environment.Exit(0);
@@ -45,7 +45,7 @@ namespace Hangman
             catch { return MainMenu(); }
         }
 
-        public void Authentification(int type)
+        public void Authentification(int type) //Registration (type 2) and Login (type 1)
         {
             Console.Clear();
 
@@ -54,42 +54,45 @@ namespace Hangman
             Console.Write("Password:  ");
             password = Console.ReadLine();
 
-            if(type == 1) LoginChecker();
-            if(type == 2) RegisterChecker();
+            if (type == 1) LoginChecker();
+            if (type == 2) RegisterChecker();
         }
 
-        public void LoginChecker()
+        public void LoginChecker() //Checks if Login was valid
         {
-
-
-            if(!DatabaseHelper.LoginValidator(name, password))
+            if (!DatabaseHelper.LoginValidator(name, password))
             {
                 Authentification(1);
             }
         }
 
-        public void RegisterChecker()
+        public void RegisterChecker() //Checks if Registration was valid
         {
+            string answer = null;
             Console.ForegroundColor = ConsoleColor.Red;
             if (DatabaseHelper.accountIsAlreadyMade(name))
             {
                 Console.WriteLine("\nAccount With That Username Is Already Taken!");
                 Console.ResetColor();
-                Console.ReadKey();
-                Authentification(2);
+                Console.WriteLine("\nType Any Key To Go Back...\n1 To Try Again");
+                answer = Console.ReadLine();
+
+                if (answer != "1") new Player();
+                else Authentification(2);
                 return;
             }
             else if (name == "" || password == "")
             {
                 Console.WriteLine("\nYou Forgot To Type In Your Name/Password!");
                 Console.ResetColor();
-                Console.ReadKey();
-                Authentification(2);
+                Console.WriteLine("\nType Any Key To Go Back...\n1 To Try Again");
+                answer = Console.ReadLine();
+
+                if (answer[0] == '1') new Player();
+                else Authentification(2);
                 return;
             }
-
-            DatabaseHelper.RegistrationInDatabase(name,password);
-
+            DatabaseHelper.RegistrationInDatabase(name, password);
             Console.ResetColor();
         }
     }

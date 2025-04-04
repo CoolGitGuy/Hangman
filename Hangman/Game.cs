@@ -20,8 +20,8 @@ namespace Hangman
         private Player player;
 
 
-        public Game(string[] terms,string gamemode, Player player) //This one is used when you want to start a new game
-        { 
+        public Game(string[] terms, string gamemode, Player player) //This one is used when you want to start a new game
+        {
             this.terms = terms;
             this.player = player;
             this.gamemode = gamemode;
@@ -32,7 +32,7 @@ namespace Hangman
             GameLogic(term);
         }
 
-        private Game(int score,int health, int pointCounter, int round, string[] terms,string gamemode,Player player) //Onto the next word
+        private Game(int score, int health, int pointCounter, int round, string[] terms, string gamemode, Player player) //Onto the next word
         {
             this.score = score;
             this.health = health;
@@ -52,7 +52,7 @@ namespace Hangman
         {
             string guess = writeTUI();
             pointCounterReset();
-            
+
             if (health == 0) // If health hits 0 player looses
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -68,11 +68,11 @@ namespace Hangman
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
                 pointCounterReset();
-                new Game(score, ++health, pointCounter,++round,terms,gamemode,player);
+                new Game(score, ++health, pointCounter, ++round, terms, gamemode, player);
             }
             else if (guess.Length == 1) // If a player puts a character instead
             {
-                if(guess == " ")
+                if (guess == " ")
                 {
                     GameLogic(term);
                     return;
@@ -81,7 +81,7 @@ namespace Hangman
                 {
                     GameLogic(term);
                     return;
-                }    
+                }
                 underscoreLogic(term, guess[0]);
                 guessedCharacters.Add(guess.ToLower()[0]);
 
@@ -90,21 +90,21 @@ namespace Hangman
                 {
                     Console.Write("You Guessed it!");
                     System.Threading.Thread.Sleep(600);
-                    new Game(score,++health, pointCounter,++round,terms,gamemode,player);
+                    new Game(score, ++health, pointCounter, ++round, terms, gamemode, player);
                 }
             }
             else // if a guess doesn't match with a word
             {
-                if(!String.IsNullOrWhiteSpace(guess))health -= 1;
+                if (!String.IsNullOrWhiteSpace(guess)) health -= 1;
                 GameLogic(term);
             }
         }
 
-        public void underscoreLogic(string term,char guess) //Makes the Term Hidden and if the character is guessed, makes the character in the term visible
+        public void underscoreLogic(string term, char guess) //Makes the Term Hidden and if the character is guessed, makes the character in the term visible
         {
             char[] hiddenWordCharacters = hiddenWord.ToCharArray();
             string lowerTerm = term.ToLower();
-            for(int i = 0; i< term.Length; i++)
+            for (int i = 0; i < term.Length; i++)
             {
                 if (lowerTerm[i] == guess.ToString().ToLower()[0])
                 {
@@ -121,23 +121,23 @@ namespace Hangman
         {
             Console.Clear();
             //Console.WriteLine("Name: " + player.Name);
-            Console.WriteLine("Health: " + health + " Score: "+ score + "\nRound: " + round);
+            Console.WriteLine("Health: " + health + " Score: " + score + "\nRound: " + round);
             Console.WriteLine("{0,3}_____{1,-1}{0,4}" + hiddenWord, ' ', (health <= 4) ? "," : "");
-            Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ',(health <= 4) ? ";" : "");
-            Console.WriteLine("{0,3}|/   {1,-1}{0,4}{2}", ' ', (health <= 3 ) ? "O" : "", new string(guessedCharacters.ToArray()));
+            Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ', (health <= 4) ? ";" : "");
+            Console.WriteLine("{0,3}|/   {1,-1}{0,4}{2}", ' ', (health <= 3) ? "O" : "", new string(guessedCharacters.ToArray()));
             Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 2 || health <= 1) ? ((health == 2) ? " |" : @"/|\") : "");
             Console.WriteLine("{0,3}|   {1,-1}{0,4}", ' ', (health <= 0) ? @"/ \" : "");
             Console.WriteLine("{0,3}|    {0,4}", ' ');
-            Console.Write("{0,2}_|_     {0,3}", ' ' );
-            if(health !=0)return Console.ReadLine();
+            Console.Write("{0,2}_|_     {0,3}", ' ');
+            if (health != 0) return Console.ReadLine();
             return null;
         }
 
         public void typeWriterEffect(string message) //Adds typewriter effect to a message
         {
-            for(int i = 0; i<message.Length; i++)
+            for (int i = 0; i < message.Length; i++)
             {
-                if(i%2 == 0)
+                if (i % 2 == 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
@@ -159,7 +159,7 @@ namespace Hangman
 
         public void guessedWordPoints(string term) //3 points for each unique hidden character (no duplicates) after player quesses a full word right
         {
-            for(int i =0; i<term.Length;i++)
+            for (int i = 0; i < term.Length; i++)
             {
                 if (hiddenWord.ToLower()[i] != term.ToLower()[i] && !guessedCharacters.Contains(term.ToLower()[i]))
                 {
