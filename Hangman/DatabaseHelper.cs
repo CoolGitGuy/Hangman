@@ -13,9 +13,11 @@ namespace Hangman
     internal class DatabaseHelper
     {
         private static string connectionStringDatabase = @"Data Source=..\..\Database\database.db;Version=3;";
+        private static string connectionStringTerms = @"Data Source=..\..\Database\Terms.db;Version=3;";
+
         public static void InitializeDatabase()
         {
-            if(!File.Exists(@"..\..\Database\database.db"))
+            if (!File.Exists(@"..\..\Database\database.db"))
             {
                 SQLiteConnection.CreateFile(@"..\..\Database\database.db");
                 using (var connection = new SQLiteConnection(connectionStringDatabase))
@@ -30,16 +32,23 @@ namespace Hangman
 	                        Password	TEXT NOT NULL,
 	                        PRIMARY KEY(Player_ID AUTOINCREMENT));";
 
+                    /*
+                        Game_ID	INTEGER NOT NULL,
+	                    Gamemode	TEXT NOT NULL,
+	                    Score	INTEGER NOT NULL,
+	                    Username	TEXT NOT NULL,
+	                    PRIMARY KEY(Game_ID AUTOINCREMENT),
+	                    FOREIGN KEY(Username) REFERENCES Player(Username)*/
+
                     string createGameTableQuery = @"
                             CREATE TABLE IF NOT EXISTS Game (
 	                        Game_ID	INTEGER NOT NULL,
 	                        Gamemode	TEXT NOT NULL,
 	                        Score	INTEGER NOT NULL,
-	                        Player_ID	INTEGER NOT NULL,
-	                        PRIMARY KEY(Game_ID AUTOINCREMENT),
-	                        FOREIGN KEY(Player_ID) REFERENCES Player(Player_ID));";
+	                        Username	TEXT NOT NULL,
+	                        PRIMARY KEY(Game_ID AUTOINCREMENT));";
 
-                    using(var command = new SQLiteCommand(connection)) 
+                    using (var command = new SQLiteCommand(connection))
                     {
                         command.CommandText = createPlayerTableQuery;
                         command.ExecuteNonQuery();
@@ -48,12 +57,12 @@ namespace Hangman
                         command.ExecuteNonQuery();
                     }
 
-                    //connection.Close();
+                    connection.Close();
                 }
             }
         }
 
-        private static string connectionStringTerms = @"Data Source=..\..\Database\Terms.db;Version=3;";
+
 
         public static string[] InitializeTerms(string termType)
         {
@@ -73,7 +82,7 @@ namespace Hangman
                 SQLiteDataReader data = null;
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    
+
                     command.CommandText = selectTerms;
                     data = command.ExecuteReader();
 
@@ -85,10 +94,10 @@ namespace Hangman
                         }
                     }
                 }
-                
+
                 connection.Close();
             }
-                return list.ToArray();
+            return list.ToArray();
         }
 
         public static bool accountIsAlreadyMade(string Name)
@@ -124,7 +133,7 @@ namespace Hangman
             }
         }
 
-        public static void RegistrationInDatabase(string username,string password)
+        public static void RegistrationInDatabase(string username, string password)
         {
             using (var connection = new SQLiteConnection(connectionStringDatabase))
             {
@@ -132,7 +141,7 @@ namespace Hangman
                 string registrationSQL = $"INSERT INTO Player (Username,Password) VALUES ('{username}','{password}')";
 
 
-                using (var command = new SQLiteCommand(registrationSQL,connection))
+                using (var command = new SQLiteCommand(registrationSQL, connection))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -144,35 +153,56 @@ namespace Hangman
 
         public static bool LoginValidator(string username, string password)
         {
-            if(username == null || password == null) return false;
+            if (username == null || password == null) return false;
 
-            if(accountIsAlreadyMade(username))
+            if (accountIsAlreadyMade(username))
             {
                 using (var connection = new SQLiteConnection(connectionStringDatabase))
                 {
                     connection.Open();
                     string selectTerms = $"select Password FROM Player WHERE Username like '{username}';";
 
-                    //////////Implementirati Ukoliko username ne postoji u bazi podataka da vraca na login!
                     SQLiteDataReader data = null;
                     using (SQLiteCommand command = connection.CreateCommand())
                     {
 
                         command.CommandText = selectTerms;
-                        data = command.ExecuteReader();
-
-                        if (data.HasRows)
+                        using (data = command.ExecuteReader())
                         {
-                            data.Read();
-                            if (password.Equals(data.GetValue(0).ToString())) return true;
-                            return false;
+
+                            if (data.HasRows)
+                            {
+                                data.Read();
+                                if (password.Equals(data.GetValue(0).ToString())) return true;
+                                connection.Close();
+                                return false;
+                            }
+                            else
+                            {
+                                connection.Close();
+                                return false;
+                            }
                         }
-                        else return false;
                     }
                 }
             }
-
             return false;
+        }
+
+        public static void ScoreRegistration(string username, int score, string gamemode)
+        {
+            using (var connection = new SQLiteConnection(connectionStringDatabase))
+            {
+                connection.Open();
+                string addRecord = $"INSERT INTO Game (Gamemode,Score,Username) VALUES ('{gamemode}',{score},'{username}')";
+
+                using (var command = new SQLiteCommand(addRecord, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
         }
     }
 }

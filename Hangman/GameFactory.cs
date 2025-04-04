@@ -45,22 +45,22 @@ namespace Hangman
             switch(gameType) { 
                 case 1:
                     string[] allTerms = DatabaseHelper.InitializeTerms("*");
-                    return new Game(allTerms,player);
+                    return new Game(allTerms,"All",player);
                 case 2:
                     string[] celebrities = DatabaseHelper.InitializeTerms("Celebrity");
-                    return new Game(celebrities, player);
+                    return new Game(celebrities,"Celebrity", player);
                 case 3:
                     string[] musicalInstruments = DatabaseHelper.InitializeTerms("Instrument");
-                    return new Game(musicalInstruments, player);
+                    return new Game(musicalInstruments,"Instrument", player);
                 case 4:
                     string[] animals = DatabaseHelper.InitializeTerms("Animal");
-                    return new Game(animals, player);
+                    return new Game(animals,"Animal", player);
                 case 5:
                     string[] geography = DatabaseHelper.InitializeTerms("Geography");
-                    return new Game(geography, player);
+                    return new Game(geography,"Geography", player);
                 case 6:
                     string[] brands = DatabaseHelper.InitializeTerms("Brands");
-                    return new Game(brands, player);
+                    return new Game(brands,"Brand", player);
                 case 0:
                     new Menu(player);
                     return null;
