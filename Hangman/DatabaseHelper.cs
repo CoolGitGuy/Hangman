@@ -84,13 +84,15 @@ namespace Hangman
                 {
 
                     command.CommandText = selectTerms;
-                    data = command.ExecuteReader();
-
-                    if (data.HasRows)
+                    using (data = command.ExecuteReader())
                     {
-                        while (data.Read())
+
+                        if (data.HasRows)
                         {
-                            list.Add(data.GetValue(0).ToString());
+                            while (data.Read())
+                            {
+                                list.Add(data.GetValue(0).ToString());
+                            }
                         }
                     }
                 }
@@ -98,6 +100,67 @@ namespace Hangman
                 connection.Close();
             }
             return list.ToArray();
+        }
+
+        public static string[] InitializeRecords(string recordType)
+        {
+            List<string> list = new List<string>();
+
+            using (var connection = new SQLiteConnection(connectionStringDatabase))
+            {
+                connection.Open();
+                string selectTerms;
+                if (recordType != "All Terms")
+                {
+                    selectTerms = $" SELECT Score, Username FROM Game WHERE Gamemode like '{recordType}' ORDER BY Score DESC limit 5";
+                }
+                else selectTerms = $" SELECT Score, Username FROM Game WHERE Gamemode like 'All' ORDER BY Score DESC limit 5";
+
+
+                SQLiteDataReader data = null;
+                using (SQLiteCommand command = connection.CreateCommand())
+                {
+
+                    command.CommandText = selectTerms;
+                    using (data = command.ExecuteReader())
+                    {
+
+                        if (data.HasRows)
+                        {
+                            while (data.Read())
+                            {
+                                list.Add(data.GetValue(0).ToString());
+                                list.Add(data.GetValue(1).ToString());
+                            }
+                        }
+                    }
+                }
+                while (list.Count < 10)
+                {
+                    list.Add("-");
+                    list.Add("-----");
+                }
+                connection.Close();
+            }
+            return list.ToArray();
+        }
+
+        public static void DeleteRecord(string gamemode)
+        {
+            using (var connection = new SQLiteConnection(connectionStringDatabase))
+            {
+                connection.Open();
+                string registrationSQL = $"DELETE  FROM Game Where Gamemode like '{gamemode}'";
+
+
+                using (var command = new SQLiteCommand(registrationSQL, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+            return;
         }
 
         public static bool accountIsAlreadyMade(string Name)
@@ -115,13 +178,14 @@ namespace Hangman
                 {
 
                     command.CommandText = selectTerms;
-                    data = command.ExecuteReader();
-
-                    if (data.HasRows)
+                    using (data = command.ExecuteReader())
                     {
-                        while (data.Read())
+                        if (data.HasRows)
                         {
-                            list.Add(data.GetValue(0).ToString());
+                            while (data.Read())
+                            {
+                                list.Add(data.GetValue(0).ToString());
+                            }
                         }
                     }
                 }
