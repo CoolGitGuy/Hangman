@@ -12,6 +12,7 @@ namespace Hangman
         private int health = 5;
         private int score = 0;
         private string[] terms;
+        private string gamemode = null;
         private HashSet<char> guessedCharacters = new HashSet<char>();
         private string hiddenWord = null;
         private int pointCounter = 0;
@@ -19,10 +20,11 @@ namespace Hangman
         private Player player;
 
 
-        public Game(string[] terms, Player player) //This one is used when you want to start a new game
+        public Game(string[] terms,string gamemode, Player player) //This one is used when you want to start a new game
         { 
             this.terms = terms;
             this.player = player;
+            this.gamemode = gamemode;
 
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
@@ -30,7 +32,7 @@ namespace Hangman
             GameLogic(term);
         }
 
-        private Game(int score,int health, int pointCounter, int round, string[] terms,Player player) //Onto the next word
+        private Game(int score,int health, int pointCounter, int round, string[] terms,string gamemode,Player player) //Onto the next word
         {
             this.score = score;
             this.health = health;
@@ -38,6 +40,7 @@ namespace Hangman
             this.round = round;
             this.terms = terms;
             this.player = player;
+            this.gamemode = gamemode;
 
             string term = terms[new Random().Next(terms.Length)];
             hiddenWord = new string('_', term.Length);
@@ -55,6 +58,7 @@ namespace Hangman
                 Console.ForegroundColor = ConsoleColor.Red;
                 typeWriterEffect("You Lose! :(\n");
                 Console.ResetColor();
+                DatabaseHelper.ScoreRegistration(player.Name, score, gamemode);
                 new GameFactory(player);
                 return;
             }
@@ -64,7 +68,7 @@ namespace Hangman
                 Console.WriteLine("You Guessed it!");
                 System.Threading.Thread.Sleep(600);
                 pointCounterReset();
-                new Game(score, ++health, pointCounter,++round,terms,player);
+                new Game(score, ++health, pointCounter,++round,terms,gamemode,player);
             }
             else if (guess.Length == 1) // If a player puts a character instead
             {
@@ -86,7 +90,7 @@ namespace Hangman
                 {
                     Console.Write("You Guessed it!");
                     System.Threading.Thread.Sleep(600);
-                    new Game(score,++health, pointCounter,++round,terms,player);
+                    new Game(score,++health, pointCounter,++round,terms,gamemode,player);
                 }
             }
             else // if a guess doesn't match with a word
@@ -117,7 +121,7 @@ namespace Hangman
         {
             Console.Clear();
             //Console.WriteLine("Name: " + player.Name);
-            Console.WriteLine("Health: " + health + " Score: " + score + "\nRound: " + round);
+            Console.WriteLine("Health: " + health + " Score: "+ score + "\nRound: " + round);
             Console.WriteLine("{0,3}_____{1,-1}{0,4}" + hiddenWord, ' ', (health <= 4) ? "," : "");
             Console.WriteLine("{0,3}| /  {1,-1} {0,4}", ' ',(health <= 4) ? ";" : "");
             Console.WriteLine("{0,3}|/   {1,-1}{0,4}{2}", ' ', (health <= 3 ) ? "O" : "", new string(guessedCharacters.ToArray()));
@@ -129,12 +133,16 @@ namespace Hangman
             return null;
         }
 
-
         public void typeWriterEffect(string message) //Adds typewriter effect to a message
         {
             for(int i = 0; i<message.Length; i++)
             {
+                if(i%2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
                 Console.Write(message[i]);
+                Console.ResetColor();
                 System.Threading.Thread.Sleep(150);
             }
         }
